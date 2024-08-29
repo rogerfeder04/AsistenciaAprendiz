@@ -1,6 +1,7 @@
 import express from 'express';
 import { check } from 'express-validator';
 import httpFiches from '../controllers/fiches.js';
+import fichesHelper from '../helpers/fiches.js';
 
 const router = express.Router();
 

@@ -3,7 +3,7 @@ import express from 'express';
 import { check } from 'express-validator'
 import {validarCampos} from "../middleware/validarCampos.js"
 import {validarJWT} from "../middleware/validarJWT.js"
-// import { usuarioHelper } from "../helpers/users.js";
+import userHelper from "../helpers/users.js";
 
 const router = express.Router();
 
@@ -14,7 +14,7 @@ router.get('/usuarios', [
 router.get('/usuarios/:id', [
     validarJWT,
     check('id', 'No es un ID válido').isMongoId(),
-    check('id').custom(usuarioHelper.existeUsuarioID),
+    check('id').custom(userHelper.existUserID),
     validarCampos
 ], httpUsuarios.listUserById);
 
@@ -28,7 +28,7 @@ router.get('/inactivos', [
 
 router.post('/usuarios', [
     check('email', 'El documento es obligatorio!').not().isEmpty(),
-    check('email').custom(usuarioHelper.existeEmail),
+    check('email').custom(userHelper.existEmail),
     check('password', 'Password no es válido').isLength({ min: 8, max: 15 }),
     validarCampos
 ], httpUsuarios.addUsers);
@@ -43,7 +43,7 @@ router.post('/usuarios/login', [
 router.put('/pass/:id', [
     validarJWT,
     check('id', 'No es un ID válido').isMongoId(),
-    check('id').custom(usuarioHelper.existeUsuarioID),
+    check('id').custom(userHelper.existUserID),
     check('newPassword', 'Password no es válido').isLength({ min: 8, max: 15 }),
     validarCampos
 ], httpUsuarios.updatePassword);
@@ -51,7 +51,7 @@ router.put('/pass/:id', [
 router.put('/mail/:id', [
     validarJWT,
     check('id', 'No es un ID válido').isMongoId(),
-    check('id').custom(usuarioHelper.existeUsuarioID),
+    check('id').custom(userHelper.existUserID),
     check("email", "El email es obligatorio").notEmpty(),
     check('email', "El email no es valido").isEmail(),
     validarCampos
@@ -59,14 +59,14 @@ router.put('/mail/:id', [
 
 router.put('/activar/:id', [
     check('id', 'No es un ID válido').isMongoId(),
-    check('id').custom(usuarioHelper.existeUsuarioID),
+    check('id').custom(userHelper.existUserID),
     validarCampos
 ], httpUsuarios.enableUser);
 
 router.put('/desactivar/:id', [
     validarJWT,
     check('id', 'No es un ID válido').isMongoId(),
-    check('id').custom(usuarioHelper.existeUsuarioID),
+    check('id').custom(userHelper.existUserID),
     validarCampos
 ], httpUsuarios.disableUser);
 

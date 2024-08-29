@@ -41,8 +41,8 @@ const httpUsuarios = {
     },
     addUsers: async (req, res) => {
 
-        const { email, password } = req.body;
-        const user = new User({ email, password });
+        const { name, email, role, password } = req.body;
+        const user = new User({ name, email, role, password });
 
         const salt = bcryptjs.genSaltSync();
         usuario.password = bcryptjs.hashSync(password, salt)

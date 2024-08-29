@@ -2,7 +2,7 @@ import httpAssignments from "./../controllers/assignment.js"
 import express from 'express';
 import { check } from 'express-validator';
 import { validarCampos } from "../middleware/validarCampos.js";
-// import { assignmentHelper } from "./../helpers/assignment.js";
+import { assignmentHelper } from "./../helpers/assignment.js";
 
 const router = express.Router();
 
@@ -11,6 +11,8 @@ router.get('/listallassignment',[
 ], httpAssignments.listAllAssignments);
 
 router.get('/listassignmentbyid/:id', [
+    check('id').isMongoId(),
+    check('id').custom(assignmentHelper.existAssignmentByID),
     validarCampos
 ], httpAssignments.listAssignmentsByID);
 
