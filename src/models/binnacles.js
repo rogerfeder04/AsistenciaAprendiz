@@ -11,8 +11,7 @@ const binnacleSchema= new mongoose.Schema({
         observationDate: { type: Date, default: Date.now }
       }],
     status: {type: Number, required: true, default: 1 },
-    users:{type:String, required: true}
-    
 }, {timestamps:true});
+
 
 export default mongoose.model("Binnacle", binnacleSchema);

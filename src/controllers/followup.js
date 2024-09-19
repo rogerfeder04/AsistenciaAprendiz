@@ -64,7 +64,7 @@ const httpFollowup = {
             document,
             status,
             users,
-            observation
+            observations
           } = req.body;
       
           // Crear un nuevo documento de seguimiento
@@ -76,7 +76,7 @@ const httpFollowup = {
             document,
             status,
             users,
-            observation
+            observations
           });
       
           // Guardar el documento en la base de datos

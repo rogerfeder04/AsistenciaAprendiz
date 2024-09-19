@@ -49,9 +49,9 @@ const httpBinnacles = {
   
     //Crear Bitacora
     addBinnacle: async (req, res) => {
-        const { assignament,instructor, number,document,status,observations,user } = req.body;
+        const { assignament,instructor, number,document,status,observation,user } = req.body;
         try {
-            const newBinnacle = new Apprentice({  assignament,instructor, number,document,status,observations,user});
+            const newBinnacle = new Apprentice({  assignament,instructor, number,document,status,observation,user});
             const BinnacleCreate = await newBinnacle.save();
             res.status(201).json(BinnacleCreate);
         } catch (error) {
@@ -61,14 +61,14 @@ const httpBinnacles = {
     // Editar una bitacora por su ID
     updateBinnacle: async (req, res) => {
         const { id } = req.params;
-        const { assignament,instructor, number,document,status,observations,user } = req.body;
+        const { assignament,instructor, number,document,status,observation,user } = req.body;
         try {
             const binnacleID = await Binnacle.findById(id);
             if (!binnacleID) {
                 return res.status(404).json({ error: 'No se ha encontrado la bitacora' });
             }
 
-            const editBinnacle = await Binnacle.findByIdAndUpdate(id, { assignament,instructor, number,document,status,observations,user  }, { new: true });
+            const editBinnacle = await Binnacle.findByIdAndUpdate(id, { assignament,instructor, number,document,status,observation,user  }, { new: true });
 
             console.log('Bitacora editada:', editBinnacle);
             res.json(editBinnacle);

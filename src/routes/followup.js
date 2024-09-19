@@ -36,9 +36,16 @@ router.post('/addfollowup',[
     check('instructor', 'El ID de instructor no es valido').isMongoId(),
     check('number', 'El campo number es obligatorio').notEmpty(),
     check('month', 'El campo month debe ser una fecha valida').isDate(),
+    check('document', 'El campo document es obligatorio').notEmpty(),
+    check('status', 'El campo status debe ser un numero').isInt(),
+    check('users', 'El campo users es obligatorio').notEmpty(),
+    check('observations.*.observation', 'Cada observación es obligatoria').notEmpty(),
+    check('observations.*.user', 'El usuario en cada observación es obligatorio y debe ser un ID de MongoDB válido').notEmpty().isMongoId(),
+    check('observations.*.date', 'La fecha en cada observación es obligatoria y debe ser una fecha válida').notEmpty().isDate(),
     //validarJWT,
     validarCampos    
 ], httpFollowup.insertFollowup);
+
 
 router.put('/updatefollowupbyid/:id',[
     check(),
