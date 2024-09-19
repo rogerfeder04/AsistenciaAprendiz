@@ -2,8 +2,8 @@ import httpRegisters from "../controllers/register.js"
 import express from 'express';
 import { check } from 'express-validator'
 
-import {validarCampos} from "../middleware/validarCampos.js"
-import {validarJWT} from "../middleware/validarJWT.js"
+import validarCampos from "../middleware/validarCampos.js"
+import {validarJWT }from "../middleware/validarJWT.js"
 import  modalityHelper from "../helpers/modality.js";
 import  apprenticeHelper from "../helpers/apprentices.js";
 import  registerHelper from "../helpers/register.js";
@@ -80,6 +80,7 @@ router.post('/addregister', [
     check("owner", "El dueño es obligatori@").not().isEmpty(),
     check("docAlternative", "El dueño es obligatori@").not().isEmpty().isLength({ min: 8, max: 15 }).isNumeric(),
     check("hour", "Las horas son obligatorias").not().isEmpty().isNumeric(),
+    check("gmailCompany", "El dueño es obligatori@").not().isEmpty(),
     validarCampos
 ], httpRegisters.addRegister);
 
@@ -98,6 +99,7 @@ router.put('/updateregisterbyid/:id', [
     check("owner", "El dueño es obligatori@").not().isEmpty(),
     check("docAlternative", "El dueño es obligatori@").not().isEmpty().isLength({ min: 8, max: 15 }).isNumeric(),
     check("hour", "Las horas son obligatorias").not().isEmpty().isNumeric(),
+    check("gmailCompany", "El dueño es obligatori@").not().isEmpty(),
     validarCampos
 ], httpRegisters.updateRegisterById);
  

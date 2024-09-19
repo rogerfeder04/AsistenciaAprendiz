@@ -142,9 +142,9 @@ const httpRegisters = {
 
     // Añadir  Registro:
     addRegister: async (req, res) => {
-        const { idApprentice, idModality, startDate, endDate, lastName, company, phoneCompany, addressCompany, owner, docAlternative, hour } = req.body;
+        const { idApprentice, idModality, startDate, endDate, lastName, company, phoneCompany, addressCompany, owner, docAlternative, hour, mailCompany } = req.body;
         try {
-            const newRegister = new Register({ idApprentice, idModality, startDate, endDate, lastName, company, phoneCompany, addressCompany, owner, docAlternative, hour });
+            const newRegister = new Register({ idApprentice, idModality, startDate, endDate, lastName, company, phoneCompany, addressCompany, owner, docAlternative, hour, mailCompany });
             const RegisterCreate = await newRegister.save();
             res.status(201).json(RegisterCreate);
         } catch (error) {
@@ -154,7 +154,7 @@ const httpRegisters = {
     // Actualizar los datos del registro 
     updateRegisterById: async (req, res) => {
         const { id } = req.params;  // ID del registro a actualizar
-        const { idApprentice, idModality, startDate, endDate, lastName, company, phoneCompany, addressCompany, owner, docAlternative, hour } = req.body;
+        const { idApprentice, idModality, startDate, endDate, lastName, company, phoneCompany, addressCompany, owner, docAlternative, hour, mailCompany } = req.body;
 
         try {
             // Buscar el registro por ID y actualizarlo con los datos del cuerpo de la solicitud
@@ -171,7 +171,8 @@ const httpRegisters = {
                     addressCompany,
                     owner,
                     docAlternative,
-                    hour
+                    hour,
+                    mailCompany
                 },
                 { new: true }  // Opción para devolver el documento actualizado
             );

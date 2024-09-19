@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const logSchema= new Schema(
+const logSchema= new mongoose.Schema(
     {
       user: {
         type: String,

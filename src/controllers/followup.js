@@ -54,24 +54,41 @@ const httpFollowup = {
     },
 
     //POST: Insertar un Followup
-    insertfollowup: async (req, res) => {
-        const newFollowup = new Followup({
-            assigment: req.body.assigment,
-            instructor: req.body.instructor,
-            number: req.body.number,
-            month: req.body.month,
-            document: req.body.document,
-            status: req.body.status,
-            users: req.body.users,
-            observations: req.body.observations
-        });
+    insertFollowup: async (req, res) => {
         try {
-            const savedFollowup = await newFollowup.save();
-            res.status(201).json(savedFollowup);
+          const {
+            assignment,
+            instructor,
+            number,
+            month,
+            document,
+            status,
+            users,
+            observation
+          } = req.body;
+      
+          // Crear un nuevo documento de seguimiento
+          const newFollowup = new Followup({
+            assignment,
+            instructor,
+            number,
+            month,
+            document,
+            status,
+            users,
+            observation
+          });
+      
+          // Guardar el documento en la base de datos
+          await newFollowup.save();
+      
+          // Responder con el documento creado
+          res.status(201).json({ message: 'Seguimiento creado exitosamente', followup: newFollowup });
+      
         } catch (error) {
-            res.status(400).json({ message: error.message });
+          res.status(500).json({ message: 'Error al crear el seguimiento', error });
         }
-    },
+      },
 
     //PUT: Actualizar un Followup por ID
     updatefollowupbyid: async (req, res) => {
@@ -87,33 +104,35 @@ const httpFollowup = {
         }
     },
 
-    //PUT: Activar un Followup
-    enablefollowupbyid: async (req, res) => {
-        const { id } = req.params;
-        try {
-            const updatedFollowup = await Followup.findByIdAndUpdate(id, { active: true }, { new: true });
-            if (!updatedFollowup) {
-                return res.status(404).json({ message: 'Followup no encontrado' });
-            }
-            res.json(updatedFollowup);
-        } catch (error) {
-            res.status(400).json({ message: error.message });
-        }
-    },
+    //PUT: cambiar el estado, los valores de cada estado son:
+    // Programado:1
+    // Ejecutado:2
+    // pendiente:3
+    // Verificado:4
 
-    //PUT: Desactivar un Followup
-    disablefollowupbyid: async (req, res) => {
+    updatestatus: async (req, res) => {
         const { id } = req.params;
+        const { status } = req.body;
+
+        // Verificar que el estado sea válido
+        const validStatuses = [1, 2, 3, 4];
+        if (!validStatuses.includes(status)) {
+            return res.status(400).json({ message: 'Estado no valido' });
+        }
         try {
-            const updatedFollowup = await Followup.findByIdAndUpdate(id, { active: false }, { new: true });
+            const updatedFollowup = await Followup.findByIdAndUpdate(
+                id,
+                { status },
+                { new: true }
+            );
             if (!updatedFollowup) {
                 return res.status(404).json({ message: 'Followup no encontrado' });
             }
-            res.json(updatedFollowup);
+            res.json({ updatedFollowup });
         } catch (error) {
-            res.status(400).json({ message: error.message });
+            res.status(500).json({ message: error.message });
         }
     }
-};
+}
 
 export default httpFollowup;

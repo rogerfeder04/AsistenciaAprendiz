@@ -1,14 +1,18 @@
-const mongoose = require('mongoose');
+import mongoose  from 'mongoose';
 
 const followupSchema = new mongoose.Schema({
-    assigment: { type: mongoose.Schema.Types.ObjectId, ref: 'assigment', require: true },
+    assignment: { type: mongoose.Schema.Types.ObjectId, ref: 'assigment', require: true },
     instructor: { type: mongoose.Schema.Types.ObjectId, ref: 'instructor', require: true },
-    number: { type: String, require: true },
+    number: { type: Number, required: true, enum: [1, 2, 3] },
     month: { type: Date, require: true },
     document: { type: String, require: true },
-    status: { type: String, require: true, default: 1 },
+    status: { type: Number, require: true, default: 1 },
     users: { type: String, require: true },
-    observations: { type: String, require: true },
+    observations: [{
+        observation: {type: String},
+        user: {type: mongoose.Schema.Types.ObjectId, ref: 'UserEp'},
+        observationDate: {type: Date, default: Date.now}
+      }],
     createdAt: { type: Date, require: true },
     updatedAt: { type: Date, require: true }
 }, { timestamps: true })

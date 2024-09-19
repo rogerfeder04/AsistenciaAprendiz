@@ -1,4 +1,5 @@
 import Apprentice from '../models/apprentice.js';
+import Fiche from '../models/fiches.js';
 
 const apprenticeHelper = {
     existApprenticeID: async (id) => {
@@ -11,6 +12,16 @@ const apprenticeHelper = {
         } catch (error) {
             throw new Error(`Error al buscar el aprendiz por ID: ${error.message}`);
         }
+    },
+
+    existeFicheID: async (id, req) => {
+        const existe = await Fiche.findById(id)
+        if (!existe) {
+            throw new Error(`no existe la ficha ${id}`)
+        }
+
+        req.req.binnaclebd = existe
+
     },
     
     existNumDocument: async (numDocument, method = "POST") => {

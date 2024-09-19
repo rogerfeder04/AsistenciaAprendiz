@@ -6,17 +6,19 @@ const httpApprentices = {
     listApprentices: async (req, res) => {
         try {
             const apprentices = await Apprentice.find();
-            res.json(apprentices);
+            res.json({ apprentices });
         } catch (error) {
             res.status(500).json({ message: error.message });
         }
+
     },
+
     //Listar Aprendices por Ficha
     listApprenticesByFiche: async (req, res) => {
         const { idFiche } = req.params;
         try {
             const apprentices = await Apprentice.find({ fiche: idFiche });
-            res.json(apprentices);
+            res.json({ apprentices });
         } catch (error) {
             res.status(500).json({ message: error.message });
         }
@@ -41,10 +43,10 @@ const httpApprentices = {
             if (status !== '0' && status !== '1') {
                 return res.status(404).json({ message: 'Estado invalido' });
             } else if (status == 1) {
-                const activatedApprentices = await Apprentice.find({status: 1});
+                const activatedApprentices = await Apprentice.find({ status: 1 });
                 res.json({ activatedApprentices });
             } else {
-                const disabledApprentices = await Apprentice.find({status: 0});
+                const disabledApprentices = await Apprentice.find({ status: 0 });
                 res.json({ disabledApprentices });
             }
         } catch (error) {

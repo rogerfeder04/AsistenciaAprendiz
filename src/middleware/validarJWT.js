@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
-import Usuario from '../models/users.js';
+import UserEp from '../models/userEP.js';
 
-export const generarJWT = (uid) => {
+const generarJWT = (uid) => {
     return new Promise((resolve, reject) => {
         const payload = { uid };
         jwt.sign(payload, process.env.SECRETORPRIVATEKEY, {
@@ -16,7 +16,7 @@ export const generarJWT = (uid) => {
     });
 };
 
-export const validarJWT = async (req, res, next) => {
+const validarJWT = async (req, res, next) => {
     const token = req.header('x-token');
     if (!token) {
         return res.status(401).json({
@@ -55,4 +55,4 @@ export const validarJWT = async (req, res, next) => {
     }
 };
 
-export default { generarJWT, validarJWT };
+export { generarJWT, validarJWT };

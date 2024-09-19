@@ -2,8 +2,8 @@ import httpLog from "../controllers/logs.js"
 import express from 'express';
 import { check } from 'express-validator';
 import {validarCampos} from "../middleware/validarCampos.js";
-import {logHelper} from "../helpers/logs.js"
-
+import logHelper from "../helpers/logs.js"
+const router = express.Router();
 
 router.get('/listlogs',[
 
@@ -20,7 +20,7 @@ router.get('/listlogs/:id',[
 router.post('/addlog',[
     check(),
     // validarCampos
-], httpLog.addlog);
+], httpLog.addLog);
 
 
 router.put('/enablelogsbyid/:id',[

@@ -1,8 +1,8 @@
 import httpBinnacles from "../controllers/binnacles.js"
 import express from 'express';
 import { check } from 'express-validator';
-import {validarCampos} from "../middleware/validarCampos.js";
-import {binnacleHelper} from "../helpers/binnacles.js"
+import validarCampos from "../middleware/validarCampos.js";
+import binnacleHelper from "../helpers/binnacles.js"
 import {validarJWT} from "../middleware/validarJWT.js"
 
 
@@ -11,7 +11,7 @@ const router = express.Router();
 router.get('/listallbinnacles',[
     validarJWT,
     validarCampos
-],httpBinnacles.listApprentices);
+],httpBinnacles.listBinnacles);
 
 
 router.get('/listbinnaclesbyid/:id',[
@@ -48,6 +48,11 @@ router.post('/addbinnacles',[
 
 router.put('/updatebinnaclebyid/:id',[
     validarJWT,
+    check('instructor', 'el  instructor es obligatorio').not().isEmpty(),
+    check('assignment', 'la asignacion es obligatoria').not().isEmpty(),
+    check('number', 'el numero de bitacora es obligatorio').not().isEmpty(),
+    check('document', 'el documento es obligatorio').not().isEmpty(),
+    check('users', 'este campo es obligatorio').not().isEmpty(),
     check('id').custom(binnacleHelper.existeBinnacleID),
     check('assigment').custom(binnacleHelper.existeAssignmentID),
     // check('assigment').custom(binnacleHelper.existeInstructortID),

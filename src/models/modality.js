@@ -1,10 +1,10 @@
 import mongoose from "mongoose";
 
 const modalitySchema = new mongoose.Schema({
-    name: { type: string, required: true },
-    hourInstructorFollow: { type: string, required: true },
-    hourInstructorTechnical: { type: string, required: true },
-    hourInstructorProject: { type: string, required: true }
+    name: { type: String, required: true },
+    hourInstructorFollow: { type: String, required: true },
+    hourInstructorTechnical: { type: String, required: true },
+    hourInstructorProject: { type: String, required: true }
     
 }, { timestamps: true });
 

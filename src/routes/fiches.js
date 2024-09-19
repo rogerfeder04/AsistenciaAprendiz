@@ -1,24 +1,31 @@
-import express from 'express';
-import { check } from 'express-validator';
-import httpFiches from '../controllers/fiches.js';
-import fichesHelper from '../helpers/fiches.js';
+// import express from 'express';
+// import { check } from 'express-validator';
+// import httpFiches from '../controllers/fiches.js';
+// import fichesHelper from '../helpers/fiches.js';
+// import validarJWT from '../helpers/validar.js'
 
-const router = express.Router();
+// const router = express.Router();
 
-router.post('/', [
-], httpFiches.addFiche);
+// router.post('/', [
+//     validarJWT,
+//     c
+// ], httpFiches.addFiche);
 
-router.get('/listar', [
-], httpFiches.listAllFiches);
+// router.get('/listar', [
+//     validarJWT,
+// ], httpFiches.listAllFiches);
 
-router.get('/listar/:id', [
-], httpFiches.listFicheById;)
+// router.get('/listar/:id', [
+//     validarJWT,
+// ], httpFiches.listFicheById);
 
-router.put('/activarDesactivar/:id', [
-], httpFiches.enableDisableFiche);
+// router.put('/activarDesactivar/:id', [
+//     validarJWT,
+// ], httpFiches.enableDisableFiche);
 
-router.put('/editar/:id', [
-], httpFiches.updateFiche)
+// router.put('/editar/:id', [
+//     validarJWT,
+// ], httpFiches.updateFiche)
 
 
-export default router;
+// export default router;

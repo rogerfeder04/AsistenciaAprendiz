@@ -1,112 +1,108 @@
-import Apprentice from '../models/apprentice.js';
+import Binnacle from '../models/binnacles.js';
 
 
-const httpApprentices = {
-    //Listar Aprendicrs
-    listApprentices: async (req, res) => {
+const httpBinnacles = {
+    //Listar Bitacoras
+    listBinnacles: async (req, res) => {
         try {
-            const apprentices = await Apprentice.find();
-            res.json(apprentices);
+            const binnacles = await Binnacle.find();
+            res.json(binnacles);
         } catch (error) {
             res.status(500).json({ message: error.message });
         }
     },
-    //Listar Aprendices por Ficha
-    listApprenticesByFiche: async (req, res) => {
-        const { idFiche } = req.params;
-        try {
-            const apprentices = await Apprentice.find({ fiche: idFiche });
-            res.json(apprentices);
-        } catch (error) {
-            res.status(500).json({ message: error.message });
-        }
-    },
-    //Listar Aprendices por ID
-    listApprenticesByID: async (req, res) => {
+   
+    //Listar Bitacoras por ID
+    listById: async (req, res) => {
         const { id } = req.params;
         try {
-            const apprentices = await Apprentice.findById(id);
-            if (!apprentices) {
-                return res.status(404).json({ message: 'Aprendiz no encontrado' });
+            const binnacles = await Binnacle.findById(id);
+            if (!binnacles) {
+                return res.status(404).json({ message: 'Bitacora no encontrado' });
             }
-            res.json(apprentices);
+            res.json(binnacles);
         } catch (error) {
             res.status(500).json({ message: error.message });
         }
     },
-    //Listar aprendices por estado
-    listApprenticeByStatus: async (req, res) => {
-        const { status } = req.params;
+
+
+    listarByAssignment: async (req, res) => {
+        const { assignament } = req.params;
         try {
-            if (status !== '0' && status !== '1') {
-                return res.status(404).json({ message: 'Estado invalido' });
-            } else if (status == 1) {
-                const activatedApprentices = await Apprentice.find({status: 1});
-                res.json({ activatedApprentices });
-            } else {
-                const disabledApprentices = await Apprentice.find({status: 0});
-                res.json({ disabledApprentices });
-            }
+            const binnaclesAssignment = await Binnacle.find({ assignament: assignament });
+            res.json(binnaclesAssignment);
         } catch (error) {
-            res.status(500).json({ error: error.message });
+            res.status(500).json({ message: error.message });
         }
     },
-    //Crear Aprendiz
-    addApprentice: async (req, res) => {
-        const { fiche, tpDocument, numDocument, firstName, lastName, phone, email } = req.body;
+
+    listarByInstructor: async (req, res) => {
+        const { instructor } = req.params;
         try {
-            const newApprentice = new Apprentice({ fiche, tpDocument, numDocument, firstName, lastName, phone, email });
-            const ApprenticeCreate = await newApprentice.save();
-            res.status(201).json(ApprenticeCreate);
+            const binnaclesinstructor = await Binnacle.find({ instructor: instructor });
+            res.json(binnaclesinstructor);
+        } catch (error) {
+            res.status(500).json({ message: error.message });
+        }
+    },
+  
+    //Crear Bitacora
+    addBinnacle: async (req, res) => {
+        const { assignament,instructor, number,document,status,observations,user } = req.body;
+        try {
+            const newBinnacle = new Apprentice({  assignament,instructor, number,document,status,observations,user});
+            const BinnacleCreate = await newBinnacle.save();
+            res.status(201).json(BinnacleCreate);
         } catch (error) {
             res.status(400).json({ message: error.message });
         }
     },
-    // Editar un aprendiz por su ID
-    updateApprenticeByID: async (req, res) => {
+    // Editar una bitacora por su ID
+    updateBinnacle: async (req, res) => {
         const { id } = req.params;
-        const { fiche, tpDocument, numDocument, firstName, lastName, phone, email } = req.body;
+        const { assignament,instructor, number,document,status,observations,user } = req.body;
         try {
-            const aprendizID = await Apprentice.findById(id);
-            if (!aprendizID) {
-                return res.status(404).json({ error: 'No se ha encontrado al aprendiz' });
+            const binnacleID = await Binnacle.findById(id);
+            if (!binnacleID) {
+                return res.status(404).json({ error: 'No se ha encontrado la bitacora' });
             }
 
-            const editAprendiz = await Apprentice.findByIdAndUpdate(id, { fiche, tpDocument, numDocument, firstName, lastName, phone, email }, { new: true });
+            const editBinnacle = await Binnacle.findByIdAndUpdate(id, { assignament,instructor, number,document,status,observations,user  }, { new: true });
 
-            console.log('Aprendiz editado:', editAprendiz);
-            res.json(editAprendiz);
+            console.log('Bitacora editada:', editBinnacle);
+            res.json(editBinnacle);
         } catch (error) {
-            console.error('Error al editar aprendiz:', error);
-            res.status(500).json({ error: 'Error al editar el aprendiz' });
+            console.error('Error al editar bitacora:', error);
+            res.status(500).json({ error: 'Error al editar bitacora' });
         }
     },
     //inactivar Aprendiz
-    disableApprentice: async (req, res) => {
+    disableBinnacle: async (req, res) => {
         const { id } = req.params;
         try {
-            const aprendiz = await Apprentice.findByIdAndUpdate(id, { estado: 0 }, { new: true });
-            if (!aprendiz) {
-                return res.status(404).json({ message: 'Aprendiz no encontrado' });
+            const binnacle = await Binnacle.findByIdAndUpdate(id, { estado: 0 }, { new: true });
+            if (!binnacle) {
+                return res.status(404).json({ message: 'Bitacora no encontrada' });
             }
-            res.json(aprendiz);
+            res.json(binnacle);
         } catch (error) {
             res.status(500).json({ message: error.message });
         }
     },
     //activar Aprendiz
-    enableApprencice: async (req, res) => {
+    enableBinnacle: async (req, res) => {
         const { id } = req.params;
         try {
-            const aprendiz = await Apprentice.findByIdAndUpdate(id, { estado: 1 }, { new: true });
-            if (!aprendiz) {
-                return res.status(404).json({ message: 'Aprendiz no encontrado' });
+            const binnacle = await Binnacle.findByIdAndUpdate(id, { estado: 1 }, { new: true });
+            if (!binnacle) {
+                return res.status(404).json({ message: 'Bitacora no encontrada' });
             }
-            res.json(aprendiz);
+            res.json(binnacle);
         } catch (error) {
             res.status(500).json({ message: error.message });
         }
     }
 };
 
-export default httpApprentices
+export default httpBinnacles

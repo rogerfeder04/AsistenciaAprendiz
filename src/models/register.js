@@ -12,6 +12,7 @@ const registerSchema = new mongoose.Schema({
     docAlternative: { type: String, required: true },
     hour : { type: Number, required: true },
     status: { type: Number, required: true, default: 1 },
+    mailCompany :{ type: String, required: true },
 }, { timestamps: true });
 
 export default mongoose.model("Register", registerSchema);

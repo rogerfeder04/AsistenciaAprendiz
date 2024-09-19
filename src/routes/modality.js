@@ -3,9 +3,9 @@ import express from 'express';
 import { check } from 'express-validator'
 
 
-import {validarJWT} from "../middleware/validarJWT.js"
+import {validarJWT }from "../middleware/validarJWT.js"
 import  modalityHelper from "../helpers/modality.js";
-import {validarCampos} from "../middleware/validarCampos.js"
+import validarCampos from "../middleware/validarCampos.js"
 
 const router = express.Router();
 
