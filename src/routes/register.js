@@ -7,7 +7,7 @@ import {validarJWT }from "../middleware/validarJWT.js"
 import  modalityHelper from "../helpers/modality.js";
 import  apprenticeHelper from "../helpers/apprentices.js";
 import  registerHelper from "../helpers/register.js";
-import  fichesHelper from "../helpers/fiches.js";
+import { ficheHelper } from "../helpers/repfora.js"
 
 
 const router = express.Router();
@@ -40,7 +40,7 @@ router.get('/listregisterbyapprentice/:idapprentice', [
 router.get('/listregistersbyfiche/:idfiche', [
     validarJWT,
     check('id', 'Este campo es obligatorio').not().isEmpty(),
-    check('id').custom(fichesHelper.existFicheID),
+    check('fiche.idFiche').custom(ficheHelper.existsFicheID),
     validarCampos
 ], httpRegisters.listRegistersByFiche);
 

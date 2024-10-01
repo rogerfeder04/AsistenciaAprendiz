@@ -1,5 +1,5 @@
 import Apprentice from '../models/apprentice.js';
-import Fiche from '../models/fiches.js';
+// import Fiche from '../models/fiches.js';
 
 const apprenticeHelper = {
     existApprenticeID: async (id) => {

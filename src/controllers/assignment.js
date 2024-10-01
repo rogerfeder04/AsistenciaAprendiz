@@ -1,6 +1,6 @@
 import Assignment from "../models/assignment.js";
 import sendMail from "../utils/mailer.js";
-import User from "../models/userEP.js";
+// import User from "../models/userEP.js";
 import Register from "../models/register.js";
 
 const httpAssignmets = {

@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import UserEp from '../models/userEP.js';
+// import UserEp from '../models/userEP.js';
 
 const generarJWT = (uid) => {
     return new Promise((resolve, reject) => {

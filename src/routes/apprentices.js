@@ -31,8 +31,12 @@ router.get('/listapprenticebystatus/:status', [
 
 router.post('/addapprentice', [
     // validarJWT,
-    check('fiche', 'El campo fiche es obligatorio').notEmpty(),
-    check('fiche').custom(ficheHelper.existsFicheID),
+    check('fiche', 'El campo ficha es obligatorio').notEmpty(),
+    check('fiche.idFiche', 'El ID no es valido').isMongoId(),
+    check('fiche.idFiche').custom(ficheHelper.existsFicheID),
+    check('fiche.number', 'El codigo de la ficha es obligatorio').notEmpty(),
+    check('fiche.name', 'El nombre de la ficha es obligatorio').notEmpty(),
+    check('tpDocument', 'el documento es obligatorio').not().isEmpty(),
     check('numDocument', 'el documento es obligatorio').not().isEmpty(),
     check('firstName', 'el nombre es obligatorio').not().isEmpty(),
     check('lastName', 'el apellido es obligatorio').not().isEmpty(),

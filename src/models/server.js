@@ -8,13 +8,10 @@ import 'dotenv/config';
 import Apprentice from './../routes/apprentices.js'
 import Assignment from './../routes/assignment.js'
 import Binnacle from './../routes/binnacle.js'
-// import Fiche from './../routes/fiches.js'
 import Followup from './../routes/followup.js'
-// import Instructor from './../routes/instructor.js'
 import Log from './../routes/logs.js'
 import Modality from './../routes/modality.js'
 import Register from './../routes/register.js'
-import User from './../routes/userEP.js'
 import Repfora from '../routes/repfora.js'
 
 
@@ -42,13 +39,10 @@ class Server {
         this.app.use('/api/Apprentice', Apprentice);
         this.app.use('/api/Assignment', Assignment);
         this.app.use('/api/Binnacle', Binnacle);
-        // this.app.use('/api/Fiche', Fiche);
         this.app.use('/api/Followup', Followup);
-        /* this.app.use('/api/Instructor', Instructor); */
         this.app.use('/api/Log', Log);
         this.app.use('/api/Modality', Modality);
         this.app.use('/api/Register', Register);
-        this.app.use('/api/User', User)
         this.app.use('/api/Repfora', Repfora)
 
     

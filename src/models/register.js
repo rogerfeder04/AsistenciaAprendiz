@@ -11,8 +11,12 @@ const registerSchema = new mongoose.Schema({
     owner: { type: String, required: true },
     docAlternative: { type: String, required: true },
     hour : { type: Number, required: true },
+    businessProyectHour: { type: Number },
+    productiveProjectHour: { type: Number },
     status: { type: Number, required: true, default: 1 },
     mailCompany :{ type: String, required: true },
 }, { timestamps: true });
 
 export default mongoose.model("Register", registerSchema);
+
+// 2 campos más horas empresariales, hora productivas
