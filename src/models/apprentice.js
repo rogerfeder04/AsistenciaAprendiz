@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const apprenticeShema = new mongoose.Schema({
-    idFiche: { type: mongoose.Schema.Types.ObjectId, ref: 'Fiches' },
+    idFiche: { idFiche: mongoose.Schema.Types.ObjectId, name: String, number: String },
     tpDocument: { type: String, required: true },
     numDocument: { type: String, required: true },
     firstName: { type: String, required: true },

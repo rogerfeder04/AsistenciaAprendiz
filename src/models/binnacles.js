@@ -7,7 +7,7 @@ const binnacleSchema= new mongoose.Schema({
     document:{type:String, required: true, unique:true},
     observation: [{
         observation: String,
-        user: {type: mongoose.Schema.Types.ObjectId, ref: 'UserEp'},
+        user: { type: mongoose.Schema.Types.ObjectId },
         observationDate: { type: Date, default: Date.now }
       }],
     status: {type: Number, required: true, default: 1 },
