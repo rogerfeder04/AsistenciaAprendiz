@@ -15,7 +15,7 @@ import Log from './../routes/logs.js'
 import Modality from './../routes/modality.js'
 import Register from './../routes/register.js'
 import User from './../routes/userEP.js'
-
+import Repfora from '../routes/repfora.js'
 
 
 class Server {
@@ -49,6 +49,7 @@ class Server {
         this.app.use('/api/Modality', Modality);
         this.app.use('/api/Register', Register);
         this.app.use('/api/User', User)
+        this.app.use('/api/Repfora', Repfora)
 
     
     
@@ -57,7 +58,7 @@ class Server {
     listen() {
         this.app.listen(this.port, () => {
             console.log('Servidor corriendo en puerto', this.port);
-            mongoose.connect(process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/ProyectoFinal')
+            mongoose.connect(process.env.MONGODB_URI || 'mongodb+srv://taroumarutheboss:fiw0HPoyyfrzbhgN@adso1.ch9wtbu.mongodb.net/RepforaEP')
             .then(() => console.log('Connected to MongoDB!'))
             .catch(err => console.error('Failed to connect to MongoDB', err));
         });

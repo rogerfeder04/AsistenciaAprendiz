@@ -65,6 +65,8 @@ router.get('/listregisterbyenddate', [
    
 ], httpRegisters.listRegisterByEndDate);
 
+
+
 // Añadir  Registro
 router.post('/addregister', [
     validarJWT,
@@ -84,6 +86,8 @@ router.post('/addregister', [
     validarCampos
 ], httpRegisters.addRegister);
 
+
+
 // Actualizar los datos del registro
 router.put('/updateregisterbyid/:id', [
     validarJWT,
@@ -102,7 +106,19 @@ router.put('/updateregisterbyid/:id', [
     check("gmailCompany", "El dueño es obligatori@").not().isEmpty(),
     validarCampos
 ], httpRegisters.updateRegisterById);
- 
+
+
+
+// Actualizar la modalidad de registro.
+router.put('/updatemodalityregister/:id', [
+    validarJWT,
+    check('id', 'Es mongo id').not().isEmpty(),
+    check('id').custom(registerHelper.existeRegisterID),
+    validarCampos
+], httpRegisters.updateRegisterModality);
+
+
+
 // Activar un registro
 router.put('/enableregister/:id', [
     validarJWT,
@@ -110,6 +126,7 @@ router.put('/enableregister/:id', [
     check('id').custom(registerHelper.existeRegisterID),
     validarCampos
 ], httpRegisters.enableRegister);
+
 
 
 // Desactivar un registro

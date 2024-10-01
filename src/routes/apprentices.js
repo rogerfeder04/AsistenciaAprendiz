@@ -1,10 +1,10 @@
 import express from 'express';
 import { check } from "express-validator";
-import { Router } from 'express';
 import httpApprentices from "../controllers/apprentices.js";
 import validarCampos from "../middleware/validarCampos.js";
 import {validarJWT} from "../middleware/validarJWT.js"
 import apprenticeHelper from "../helpers/apprentices.js";
+import { ficheHelper } from "../helpers/repfora.js"
 
 const router = express.Router();
 
@@ -30,8 +30,9 @@ router.get('/listapprenticebystatus/:status', [
 ], httpApprentices.listApprenticeByStatus);  // Coma adicional removida
 
 router.post('/addapprentice', [
-    validarJWT,
-    check('id').custom(apprenticeHelper.existeFicheID),
+    // validarJWT,
+    check('fiche', 'El campo fiche es obligatorio').notEmpty(),
+    check('fiche').custom(ficheHelper.existsFicheID),
     check('numDocument', 'el documento es obligatorio').not().isEmpty(),
     check('firstName', 'el nombre es obligatorio').not().isEmpty(),
     check('lastName', 'el apellido es obligatorio').not().isEmpty(),

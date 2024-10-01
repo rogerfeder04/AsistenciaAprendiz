@@ -208,7 +208,10 @@ const httpRegisters = {
         } catch (error) {
             res.status(500).json({ error: error.message });
         }
+    },
+    updateRegisterModality: async (req, res) => {
     }
+
 };
 
 export default httpRegisters

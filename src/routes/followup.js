@@ -8,6 +8,7 @@ import validarCampos from "../middleware/validarCampos.js";
 const router = express.Router();
 
 router.get('/listallfollowup',[
+    //validarJWT,
     validarCampos
 ], httpFollowup.listallfollowup);
 
@@ -18,7 +19,7 @@ router.get('/listfollowupbyid/:id',[
 ], httpFollowup.listfollowupbyid);
 
 router.get('/listfollowupbyassignment/:idassigment',[
-    check('id', 'El id proporcionado no es valido').isMongoId(),
+    check('idassigment', 'El id proporcionado no es valido').isMongoId(),
     //validarJWT,
     validarCampos
 ], httpFollowup.listfollowupbyassignment);
